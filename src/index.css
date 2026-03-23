@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Geist:wght@300;400;500&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-jin-red:       #BF0B2C;
+  --color-jin-red-deep:  #8C2639;
+  --color-jin-red-vivid: #D90B42;
+  --color-jin-blush:     #F29BB2;
+  --color-jin-cream:     #F2F2F2;
+  --color-jin-ink:       #0D0A0B;
+  --color-jin-ink-2:     #1A1518;
+  --color-jin-muted:     #6B5C61;
+  --color-jin-gold:      #C8A96E;
+
+  --font-display: "Cormorant Garamond", serif;
+  --font-sans:    "Geist", sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  body {
+    background-color: #0d0a0b;
+    color: #f2f2f2;
+    font-family: 'Geist', sans-serif;
+    /* Safe area for iOS notch */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+}
+
+@layer utilities {
+  /* Hide scrollbar but keep scroll functionality */
+  .scroll-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scroll-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer components {
+  .page-container {
+    @apply flex flex-col h-full bg-jin-ink;
+  }
+
+  .scroll-area {
+    @apply flex-1 overflow-y-auto pb-24;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  .section-label {
+    @apply text-[10px] tracking-[0.18em] uppercase text-jin-muted font-normal font-sans;
+  }
+
+  .card {
+    @apply mx-4 mb-3 bg-jin-ink-2 rounded-2xl border border-white/10 overflow-hidden;
+  }
+
+  .field-input {
+    @apply w-full bg-jin-ink-2 border border-white/10 rounded-2xl px-4 py-3
+           font-sans text-sm text-jin-cream outline-none
+           placeholder:text-jin-muted
+           focus:border-jin-red/40 transition-colors;
+  }
+
+  .btn-primary {
+    @apply w-full bg-jin-red border-none rounded-2xl py-4
+           font-display text-lg text-jin-cream cursor-pointer
+           active:opacity-80 transition-opacity;
+  }
+
+  .tab-icon-active svg {
+    stroke: #d90b42;
+  }
+}

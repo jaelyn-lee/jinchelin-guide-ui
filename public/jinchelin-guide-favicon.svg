@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>The Jinchelin Guide favicon</title>
+  <desc>Elegant favicon mark for The Jinchelin Guide in Jin Red.</desc>
+
+  <!-- Transparent background -->
+
+  <!-- Outer medal ring -->
+  <circle cx="256" cy="272" r="150" stroke="#BF0B2C" stroke-width="16"/>
+
+  <!-- Star -->
+  <path d="M256 56L266.214 87.4384H299.264L272.525 106.873L282.739 138.312L256 118.877L229.261 138.312L239.475 106.873L212.736 87.4384H245.786L256 56Z" fill="#BF0B2C"/>
+
+  <!-- Center flower mark -->
+  <g transform="translate(256 272)">
+    <path d="M0 -84
+             C26 -104, 62 -100, 78 -66
+             C91 -38, 84 -8, 57 14
+             C36 31, 11 36, 0 58
+             C-11 36, -36 31, -57 14
+             C-84 -8, -91 -38, -78 -66
+             C-62 -100, -26 -104, 0 -84Z"
+          stroke="#BF0B2C" stroke-width="12" fill="none" transform="rotate(0)"/>
+    <path d="M0 -84
+             C26 -104, 62 -100, 78 -66
+             C91 -38, 84 -8, 57 14
+             C36 31, 11 36, 0 58
+             C-11 36, -36 31, -57 14
+             C-84 -8, -91 -38, -78 -66
+             C-62 -100, -26 -104, 0 -84Z"
+          stroke="#BF0B2C" stroke-width="12" fill="none" transform="rotate(72)"/>
+    <path d="M0 -84
+             C26 -104, 62 -100, 78 -66
+             C91 -38, 84 -8, 57 14
+             C36 31, 11 36, 0 58
+             C-11 36, -36 31, -57 14
+             C-84 -8, -91 -38, -78 -66
+             C-62 -100, -26 -104, 0 -84Z"
+          stroke="#BF0B2C" stroke-width="12" fill="none" transform="rotate(144)"/>
+    <path d="M0 -84
+             C26 -104, 62 -100, 78 -66
+             C91 -38, 84 -8, 57 14
+             C36 31, 11 36, 0 58
+             C-11 36, -36 31, -57 14
+             C-84 -8, -91 -38, -78 -66
+             C-62 -100, -26 -104, 0 -84Z"
+          stroke="#BF0B2C" stroke-width="12" fill="none" transform="rotate(216)"/>
+    <path d="M0 -84
+             C26 -104, 62 -100, 78 -66
+             C91 -38, 84 -8, 57 14
+             C36 31, 11 36, 0 58
+             C-11 36, -36 31, -57 14
+             C-84 -8, -91 -38, -78 -66
+             C-62 -100, -26 -104, 0 -84Z"
+          stroke="#BF0B2C" stroke-width="12" fill="none" transform="rotate(288)"/>
+    <circle cx="0" cy="0" r="12" fill="#BF0B2C"/>
+  </g>
+
+  <!-- Subtle guide lines at bottom for badge feel -->
+  <path d="M150 428C196 408 316 408 362 428" stroke="#BF0B2C" stroke-width="10" stroke-linecap="round"/>
+  <path d="M194 454H318" stroke="#BF0B2C" stroke-width="8" stroke-linecap="round"/>
+</svg>
