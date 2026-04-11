@@ -1,4 +1,3 @@
-import TabBar from '../components/TabBar'
 import { useGetDishRankingQuery, type DishRanking } from '@/api'
 
 function PodiumItem({
@@ -116,7 +115,6 @@ export default function HallOfFamePage() {
         )}
       </div>
 
-      <TabBar />
     </div>
   )
 }

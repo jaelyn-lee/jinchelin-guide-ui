@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useGetCategoriesQuery, useGetDishesQuery } from '@/api'
-import TabBar from '../components/TabBar'
 
 export default function MenuPage() {
   const [search, setSearch] = useState('')
@@ -63,9 +62,7 @@ export default function MenuPage() {
             <button
               key={c.id}
               onClick={() =>
-                setActiveCategory(
-                  activeCategory === c.name ? null : c.name,
-                )
+                setActiveCategory(activeCategory === c.name ? null : c.name)
               }
               className={`shrink-0 px-4 py-1.5 rounded-full text-[11px] border transition-colors
               ${activeCategory === c.name ? 'bg-jin-red border-jin-red text-jin-cream' : 'border-white/10 text-jin-muted'}`}
@@ -115,7 +112,6 @@ export default function MenuPage() {
         ))}
       </div>
 
-      <TabBar />
     </div>
   )
 }

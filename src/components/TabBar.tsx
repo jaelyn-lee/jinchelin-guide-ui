@@ -65,7 +65,7 @@ const tabs = [
   },
 ]
 
-export default function TabBar() {
+export const TabBar = () => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
