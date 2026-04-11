@@ -1,34 +1,29 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'
 import { Capacitor } from '@capacitor/core'
-import {
-  categoriesClient,
-  dishesClient,
-  reviewsClient,
-  uploadClient,
-} from '../services/clients'
-import type { CategoryResponse } from '../services/apiClient'
-import TabBar from '../components/TabBar'
+import { useGetCategoriesQuery } from '@/api/categories-api'
+import { useCreateDishMutation } from '@/api/dishes-api'
+import { useCreateReviewMutation } from '@/api/reviews-api'
+import { useUploadPhotoMutation } from '@/api/upload-api'
+import TabBar from '@/components/TabBar'
 
 export default function AddReviewPage() {
   const navigate = useNavigate()
 
-  const [categories, setCategories] = useState<CategoryResponse[]>([])
-  console.log('categories', categories)
   const [dishName, setDishName] = useState('')
   const [categoryId, setCategoryId] = useState('')
-  const [rating, setRating] = useState(4)
+  const [rating, setRating] = useState(8.0)
   const [reviewText, setReviewText] = useState('')
   const [photoFile, setPhotoFile] = useState<File | null>(null)
   const [photoPreview, setPhotoPreview] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => {
-    categoriesClient.getAll().then(setCategories)
-    console.log('set categories done')
-  }, [])
+  const { data: categories } = useGetCategoriesQuery()
+  const [createDish] = useCreateDishMutation()
+  const [createReview] = useCreateReviewMutation()
+  const [uploadPhoto] = useUploadPhotoMutation()
 
   const handlePhotoTap = async () => {
     if (!Capacitor.isNativePlatform()) {
@@ -67,26 +62,32 @@ export default function AddReviewPage() {
     try {
       // Upload photo and create dish in parallel — both are independent
       const uploadPromise = photoFile
-        ? uploadClient
-            .uploadPhoto({ data: photoFile, fileName: photoFile.name })
-            .then((res) => (res as unknown as { url: string }).url)
+        ? (() => {
+            const formData = new FormData()
+            formData.append('file', photoFile)
+            return uploadPhoto(formData).unwrap().then((res) => res.url)
+          })()
         : Promise.resolve(null)
 
-      const [photoUrl, dish] = await Promise.all([
+      const [, dish] = await Promise.all([
         uploadPromise,
-        dishesClient.create({
+        createDish({
           name: dishName.trim(),
-          categoryId: categoryId || undefined,
-        }),
+          categoryId,
+        }).unwrap(),
       ])
 
       // Create review only after both photo URL and dish ID are available
-      await reviewsClient.create({
+      const normalizedRating = Math.max(
+        0,
+        Math.min(10, Number(rating.toFixed(1))),
+      )
+
+      await createReview({
         dishId: dish.id,
-        rating,
-        reviewText: reviewText || undefined,
-        photoUrl: photoUrl || undefined,
-      })
+        rating: normalizedRating,
+        comment: reviewText || undefined,
+      }).unwrap()
 
       navigate('/')
     } catch (err) {
@@ -99,7 +100,7 @@ export default function AddReviewPage() {
 
   return (
     <div className="page-container relative">
-      <div className="px-6 pt-14 pb-5 border-b border-white/10 flex-shrink-0">
+      <div className="px-6 pt-14 pb-5 border-b border-white/10 shrink-0">
         <h1 className="font-display text-4xl font-light text-jin-cream">
           New <em className="text-jin-red-vivid">Review</em>
         </h1>
@@ -168,7 +169,7 @@ export default function AddReviewPage() {
             onChange={(e) => setCategoryId(e.target.value)}
           >
             <option value="">Select a category...</option>
-            {categories.map((c) => (
+            {categories && categories.map((c) => (
               <option key={c.id} value={c.id ?? ''}>
                 {c.name} · {c.cuisine}
               </option>
@@ -178,16 +179,24 @@ export default function AddReviewPage() {
 
         <div>
           <label className="section-label block mb-3">Rating</label>
-          <div className="flex gap-2">
-            {[1, 2, 3, 4, 5].map((n) => (
-              <button
-                key={n}
-                onClick={() => setRating(n)}
-                className={`text-2xl transition-opacity ${n <= rating ? 'opacity-100' : 'opacity-20'}`}
-              >
-                ⭐
-              </button>
-            ))}
+          <div className="rounded-2xl border border-white/10 bg-jin-ink-2 px-4 py-3">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs text-jin-muted">0.0</span>
+              <span className="font-display text-lg text-jin-gold">
+                {rating.toFixed(1)}
+                <span className="text-[11px] text-jin-muted ml-1">/ 10</span>
+              </span>
+              <span className="text-xs text-jin-muted">10.0</span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={10}
+              step={0.1}
+              value={rating}
+              onChange={(e) => setRating(Number(e.target.value))}
+              className="w-full accent-jin-red-vivid"
+            />
           </div>
         </div>
 
