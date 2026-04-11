@@ -20,7 +20,7 @@ export interface Review {
 export interface CreateReviewDto {
   dishId: string
   rating: number
-  comment?: string
+  reviewText?: string
   photoUrl?: string
 }
 
@@ -46,6 +46,6 @@ export interface CreateDishDto {
 export interface CreateReviewDto {
   dishId: string
   rating: number
-  comment?: string
+  reviewText?: string
   photoUrl?: string
 }

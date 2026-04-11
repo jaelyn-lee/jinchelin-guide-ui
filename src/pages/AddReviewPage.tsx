@@ -78,16 +78,10 @@ export default function AddReviewPage() {
         }).unwrap(),
       ])
 
-      // Create review only after both photo URL and dish ID are available
-      const normalizedRating = Math.max(
-        0,
-        Math.min(10, Number(rating.toFixed(1))),
-      )
-
       await createReview({
         dishId: dish?.id,
-        rating: normalizedRating,
-        comment: reviewText || undefined,
+        rating: rating,
+        reviewText: reviewText || undefined,
         photoUrl: photoUrl || undefined,
       }).unwrap()
 
