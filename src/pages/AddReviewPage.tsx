@@ -116,7 +116,7 @@ export default function AddReviewPage() {
             <img
               src={photoPreview}
               alt="preview"
-              className="w-full h-full object-cover"
+              className="w-auto h-full object-cover"
             />
           ) : (
             <>
