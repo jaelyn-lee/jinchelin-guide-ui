@@ -5,6 +5,7 @@ const reviewsApi = emptySplitApi.injectEndpoints({
   endpoints: (builder) => ({
     getReviews: builder.query<Review[], void>({
       query: () => ({ url: '/api/reviews', method: 'GET' }),
+      providesTags: ['Reviews'],
     }),
 
     getReviewsByDish: builder.query<Review[], string>({
@@ -24,6 +25,7 @@ const reviewsApi = emptySplitApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Reviews', 'Ranking'],
     }),
 
     deleteReview: builder.mutation<void, string>({
@@ -31,6 +33,7 @@ const reviewsApi = emptySplitApi.injectEndpoints({
         url: `/api/reviews/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Reviews', 'Ranking'],
     }),
   }),
 })

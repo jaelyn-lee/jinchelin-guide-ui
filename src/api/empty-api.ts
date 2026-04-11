@@ -12,5 +12,6 @@ export const emptySplitApi = createApi({
       return headers
     },
   }),
+  tagTypes: ['Reviews', 'Dishes', 'Ranking'],
   endpoints: () => ({}),
 })

@@ -12,12 +12,14 @@ const dishesApi = emptySplitApi.injectEndpoints({
         method: 'GET',
         params: { search, categoryId, sortBy },
       }),
+      providesTags: ['Dishes'],
     }),
     getDishRanking: builder.query<DishRanking[], void>({
       query: () => ({
         url: '/api/dishes/ranking',
         method: 'GET',
       }),
+      providesTags: ['Ranking'],
     }),
     getDish: builder.query<Dish, string>({
       query: (id: string) => ({
@@ -31,12 +33,14 @@ const dishesApi = emptySplitApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Dishes'],
     }),
     deleteDish: builder.mutation<void, string>({
       query: (id: string) => ({
         url: `/api/dishes/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Dishes', 'Reviews', 'Ranking'],
     }),
   }),
 })
