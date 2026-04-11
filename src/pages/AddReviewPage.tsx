@@ -6,7 +6,6 @@ import { useGetCategoriesQuery } from '@/api/categories-api'
 import { useCreateDishMutation } from '@/api/dishes-api'
 import { useCreateReviewMutation } from '@/api/reviews-api'
 import { useUploadPhotoMutation } from '@/api/upload-api'
-import TabBar from '@/components/TabBar'
 
 export default function AddReviewPage() {
   const navigate = useNavigate()
@@ -65,11 +64,13 @@ export default function AddReviewPage() {
         ? (() => {
             const formData = new FormData()
             formData.append('file', photoFile)
-            return uploadPhoto(formData).unwrap().then((res) => res.url)
+            return uploadPhoto(formData)
+              .unwrap()
+              .then((res) => res.url)
           })()
         : Promise.resolve(null)
 
-      const [, dish] = await Promise.all([
+      const [photoUrl, dish] = await Promise.all([
         uploadPromise,
         createDish({
           name: dishName.trim(),
@@ -84,9 +85,10 @@ export default function AddReviewPage() {
       )
 
       await createReview({
-        dishId: dish.id,
+        dishId: dish?.id,
         rating: normalizedRating,
         comment: reviewText || undefined,
+        photoUrl: photoUrl || undefined,
       }).unwrap()
 
       navigate('/')
@@ -169,11 +171,12 @@ export default function AddReviewPage() {
             onChange={(e) => setCategoryId(e.target.value)}
           >
             <option value="">Select a category...</option>
-            {categories && categories.map((c) => (
-              <option key={c.id} value={c.id ?? ''}>
-                {c.name} · {c.cuisine}
-              </option>
-            ))}
+            {categories &&
+              categories.map((c) => (
+                <option key={c.id} value={c.id ?? ''}>
+                  {c.name} · {c.cuisine}
+                </option>
+              ))}
           </select>
         </div>
 
@@ -221,8 +224,6 @@ export default function AddReviewPage() {
 
         <div className="h-4" />
       </div>
-
-      <TabBar />
     </div>
   )
 }

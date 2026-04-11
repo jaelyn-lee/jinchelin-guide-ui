@@ -21,6 +21,7 @@ export interface CreateReviewDto {
   dishId: string
   rating: number
   comment?: string
+  photoUrl?: string
 }
 
 export interface DishRanking extends Dish {
@@ -46,4 +47,5 @@ export interface CreateReviewDto {
   dishId: string
   rating: number
   comment?: string
+  photoUrl?: string
 }
