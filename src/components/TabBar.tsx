@@ -63,6 +63,22 @@ const tabs = [
       </svg>
     ),
   },
+  {
+    path: '/account',
+    label: 'Account',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        strokeWidth={1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M20 21a8 8 0 0 0-16 0" />
+        <circle cx="12" cy="8" r="4" />
+      </svg>
+    ),
+  },
 ]
 
 export const TabBar = () => {
@@ -71,8 +87,12 @@ export const TabBar = () => {
 
   return (
     <div
-      className="absolute bottom-0 left-0 right-0 h-20 bg-jin-ink/95 backdrop-blur border-t border-white/10 flex items-start justify-around pt-5 z-50"
-      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      className="absolute bottom-0 left-0 right-0 h-20 bg-jin-ink/95 backdrop-blur border-t border-white/10 flex items-start pt-5 z-50"
+      style={{
+        paddingBottom: 'env(safe-area-inset-bottom)',
+        paddingLeft: 'max(12px, env(safe-area-inset-left))',
+        paddingRight: 'max(12px, env(safe-area-inset-right))',
+      }}
     >
       {tabs.map((tab) => {
         const isActive = pathname === tab.path
@@ -80,9 +100,10 @@ export const TabBar = () => {
         if (tab.isAdd) {
           return (
             <button
+              type="button"
               key={tab.path}
               onClick={() => navigate(tab.path)}
-              className="flex flex-col items-center -mt-3"
+              className="flex-1 flex flex-col items-center -mt-3"
             >
               <div
                 className={`w-13 h-13 rounded-2xl flex items-center justify-center
@@ -106,9 +127,10 @@ export const TabBar = () => {
 
         return (
           <button
+            type="button"
             key={tab.path}
             onClick={() => navigate(tab.path)}
-            className="flex flex-col items-center gap-1"
+            className="flex-1 h-full flex flex-col items-center justify-start gap-1 hover:cursor-pointer"
           >
             <div
               className={`w-5 h-5 ${isActive ? 'stroke-jin-red-vivid' : 'stroke-jin-muted'}`}

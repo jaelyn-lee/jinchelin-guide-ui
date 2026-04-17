@@ -3,6 +3,7 @@ import { ReviewCard } from '@/components'
 
 export default function HomePage() {
   const { data: reviews, isLoading } = useGetReviewsQuery()
+  const reviewCount = reviews?.length ?? 0
 
   return (
     <div className="page-container relative">
@@ -25,7 +26,7 @@ export default function HomePage() {
         <div className="flex items-baseline justify-between px-6 py-5">
           <span className="section-label">Recent Reviews</span>
           <span className="text-[11px] text-jin-red-vivid">
-            {reviews?.length} dishes
+            {reviewCount} dishes
           </span>
         </div>
 

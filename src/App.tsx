@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage'
 import MenuPage from './pages/MenuPage'
 import AddReviewPage from './pages/AddReviewPage'
 import HallOfFamePage from './pages/HallOfFamePage'
+import AccountPage from './pages/AccountPage'
 import { AppLayout } from './components/AppLayout'
 import { useAuth } from './context/useAuth'
 import LoginPage from './pages/LoginPage'
@@ -24,6 +25,7 @@ export default function App() {
               <Route path="/menu" element={<MenuPage />} />
               <Route path="/add" element={<AddReviewPage />} />
               <Route path="/hall-of-fame" element={<HallOfFamePage />} />
+              <Route path="/account" element={<AccountPage />} />
             </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
           </>
