@@ -1,5 +1,5 @@
-import type { Category } from './types';
-import { emptySplitApi } from './empty-api';
+import type { Category } from './types'
+import { emptySplitApi } from './empty-api'
 
 const categoriesApi = emptySplitApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -7,6 +7,6 @@ const categoriesApi = emptySplitApi.injectEndpoints({
       query: () => ({ url: '/api/categories', method: 'GET' }),
     }),
   }),
-});
+})
 
-export const { useGetCategoriesQuery } = categoriesApi;
+export const { useGetCategoriesQuery } = categoriesApi
